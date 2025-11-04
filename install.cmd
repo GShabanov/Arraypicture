@@ -1,0 +1,1 @@
+call python -m pip install --no-cache-dir -v .

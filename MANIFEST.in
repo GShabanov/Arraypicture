@@ -1,0 +1,3 @@
+include src/arraypicture.h
+include src/arraypicture.cpp
+include src/_arraypicture.cpp
