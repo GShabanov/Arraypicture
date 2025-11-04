@@ -1,0 +1,1 @@
+py -m pip install --upgrade --no-cache-dir "https://raw.githubusercontent.com/GShabanov/Arraypicture/main/dist/arraypicture-0.1.0-cp38-abi3-win_amd64.whl"

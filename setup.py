@@ -28,5 +28,9 @@ ext = Extension(
 )
 
 setup(
+    name="arraypicture",
+    version="0.1.0",
+    description="WinAPI ArrayPicture control (abi3)",
     ext_modules=[ext],
+    options={"bdist_wheel": {"py_limited_api": "cp38"}},
 )
