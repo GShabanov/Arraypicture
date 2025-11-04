@@ -1,9 +1,9 @@
-# arraypicture.py  — pure Python fallback for ArrayPicture (tkinter)
+п»ї# arraypicture.py  вЂ” pure Python fallback for ArrayPicture (tkinter)
 from __future__ import annotations
 import tkinter as tk
 from typing import Callable, Optional, List, Dict, Any
 
-# Тип клітинки: {"color": int #RRGGBB, "symbol": Optional[str], "data": Optional[int]}
+# РўРёРї РєР»С–С‚РёРЅРєРё: {"color": int #RRGGBB, "symbol": Optional[str], "data": Optional[int]}
 Cell = Dict[str, Any]
 
 def _rgb_int_to_hex(rgb: int) -> str:
@@ -11,7 +11,7 @@ def _rgb_int_to_hex(rgb: int) -> str:
     return f"#{(rgb >> 16) & 0xFF:02x}{(rgb >> 8) & 0xFF:02x}{rgb & 0xFF:02x}"
 
 def _find_widget_by_hwnd(root: tk.Misc, hwnd: int) -> Optional[tk.Misc]:
-    # Пробігаємо все дерево tk та шукаємо widget з таким же winfo_id()
+    # РџСЂРѕР±С–РіР°С”РјРѕ РІСЃРµ РґРµСЂРµРІРѕ tk С‚Р° С€СѓРєР°С”РјРѕ widget Р· С‚Р°РєРёРј Р¶Рµ winfo_id()
     stack = [root]
     while stack:
         w = stack.pop()
@@ -29,14 +29,14 @@ def _find_widget_by_hwnd(root: tk.Misc, hwnd: int) -> Optional[tk.Misc]:
 class ArrayPicture:
     """ArrayPicture WinAPI-compatible (pure Python tkinter backend)."""
 
-    # -------- життєвий цикл --------
+    # -------- Р¶РёС‚С‚С”РІРёР№ С†РёРєР» --------
     def __init__(self):
         self._canvas: Optional[tk.Canvas] = None
         self._parent: Optional[tk.Misc] = None
         self._cx = 0
         self._cy = 0
         self._marker = 1
-        self._gran = 6  # клітинка = gran + 1 пікселів
+        self._gran = 6  # РєР»С–С‚РёРЅРєР° = gran + 1 РїС–РєСЃРµР»С–РІ
         self._on_point: Optional[Callable[[int, int], None]] = None
         self._grid: List[List[Cell]] = []  # [y][x]
         self._width_px = 0
@@ -52,7 +52,7 @@ class ArrayPicture:
 
         parent = _find_widget_by_hwnd(root, parent_hwnd)
         if parent is None:
-            # якщо не знайшли — ставимо на root з тим самим позиціонуванням
+            # СЏРєС‰Рѕ РЅРµ Р·РЅР°Р№С€Р»Рё вЂ” СЃС‚Р°РІРёРјРѕ РЅР° root Р· С‚РёРј СЃР°РјРёРј РїРѕР·РёС†С–РѕРЅСѓРІР°РЅРЅСЏРј
             parent = root
 
         self._parent = parent
@@ -62,21 +62,21 @@ class ArrayPicture:
         self._gran = max(0, int(granularity))
 
         self._canvas = tk.Canvas(parent, bd=0, highlightthickness=0, bg="#202020")
-        # позиціонування усередині parent як у WinAPI create(x,y,w,h)
+        # РїРѕР·РёС†С–РѕРЅСѓРІР°РЅРЅСЏ СѓСЃРµСЂРµРґРёРЅС– parent СЏРє Сѓ WinAPI create(x,y,w,h)
         try:
             self._canvas.place(x=x, y=y, width=w, height=h)
         except Exception:
-            # якщо parent — root, все одно працює
+            # СЏРєС‰Рѕ parent вЂ” root, РІСЃРµ РѕРґРЅРѕ РїСЂР°С†СЋС”
             self._canvas.place(x=x, y=y, width=w, height=h)
 
         self._width_px = int(w)
         self._height_px = int(h)
 
-        # дані за замовчуванням
+        # РґР°РЅС– Р·Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј
         self._grid = [[{"color": 0xFFFFFF, "symbol": None, "data": None}
                        for _ in range(self._cx)] for __ in range(self._cy)]
 
-        # підписки
+        # РїС–РґРїРёСЃРєРё
         self._canvas.bind("<Configure>", self._on_resize)
         self._canvas.bind("<ButtonPress-1>", self._on_lmb_down)
         self._canvas.bind("<B1-Motion>", self._on_lmb_drag)
@@ -95,7 +95,7 @@ class ArrayPicture:
         self._parent = None
         self._grid = []
 
-    # -------- властивості / getset --------
+    # -------- РІР»Р°СЃС‚РёРІРѕСЃС‚С– / getset --------
     @property
     def hwnd(self) -> int:
         if self._canvas is None:
@@ -113,7 +113,7 @@ class ArrayPicture:
     def height(self) -> int:
         return self._cy
 
-    # -------- публічний API, сумісний з C++ модулем --------
+    # -------- РїСѓР±Р»С–С‡РЅРёР№ API, СЃСѓРјС–СЃРЅРёР№ Р· C++ РјРѕРґСѓР»РµРј --------
     def set_granularity(self, gran: int) -> None:
         self._gran = max(0, int(gran))
         self._redraw_all()
@@ -133,7 +133,7 @@ class ArrayPicture:
             raise TypeError("set_input expects list[list[dict]]")
         h = len(matrix)
         w = len(matrix[0])
-        # переналаштовуємо розмір, якщо змінився
+        # РїРµСЂРµРЅР°Р»Р°С€С‚РѕРІСѓС”РјРѕ СЂРѕР·РјС–СЂ, СЏРєС‰Рѕ Р·РјС–РЅРёРІСЃСЏ
         self._cy, self._cx = h, w
         self._grid = [[{"color": 0xFFFFFF, "symbol": None, "data": None}
                        for _ in range(self._cx)] for __ in range(self._cy)]
@@ -150,7 +150,7 @@ class ArrayPicture:
                 sym = it.get("symbol", None)
                 if sym is not None:
                     sym = str(sym)
-                    # беремо лише 1-й кодпоінт (як у нативній версії)
+                    # Р±РµСЂРµРјРѕ Р»РёС€Рµ 1-Р№ РєРѕРґРїРѕС–РЅС‚ (СЏРє Сѓ РЅР°С‚РёРІРЅС–Р№ РІРµСЂСЃС–С—)
                     sym = sym[:1]
                 data = it.get("data", None)
                 self._grid[y][x] = {"color": rgb, "symbol": sym, "data": None if data is None else int(data)}
@@ -181,7 +181,7 @@ class ArrayPicture:
             raise TypeError("callback must be callable or None")
         self._on_point = cb
 
-    # -------- внутрішнє малювання --------
+    # -------- РІРЅСѓС‚СЂС–С€РЅС” РјР°Р»СЋРІР°РЅРЅСЏ --------
     def _cell_px(self) -> int:
         return self._gran + 1
 
@@ -197,10 +197,10 @@ class ArrayPicture:
         step = self._cell_px()
         wpx = self._cx * step + 1
         hpx = self._cy * step + 1
-        # фон
+        # С„РѕРЅ
         self._canvas.create_rectangle(0, 0, wpx, hpx, outline="", fill="#202020")
 
-        # клітини
+        # РєР»С–С‚РёРЅРё
         self._cell_cache = [[{"rect": 0, "text": 0} for _ in range(self._cx)] for __ in range(self._cy)]
         for y in range(self._cy):
             for x in range(self._cx):
@@ -223,7 +223,7 @@ class ArrayPicture:
                 self._cell_cache[y][x]["rect"] = rid
                 self._cell_cache[y][x]["text"] = tid
 
-        # сітка
+        # СЃС–С‚РєР°
         grid_color = "#505050"
         for xx in range(self._cx + 1):
             X = xx * step
@@ -244,12 +244,12 @@ class ArrayPicture:
         y1 = y0 + step
         c = self._grid[y][x]
         ids = self._cell_cache[y][x]
-        # фон
+        # С„РѕРЅ
         if ids["rect"]:
             self._canvas.itemconfig(ids["rect"], fill=_rgb_int_to_hex(int(c["color"])))
         else:
             ids["rect"] = self._canvas.create_rectangle(x0, y0, x1, y1, outline="", fill=_rgb_int_to_hex(int(c["color"])))
-        # текст
+        # С‚РµРєСЃС‚
         if ids["text"]:
             if c["symbol"]:
                 self._canvas.itemconfig(ids["text"], text=str(c["symbol"])[:1])
@@ -266,7 +266,7 @@ class ArrayPicture:
                     anchor="center"
                 )
 
-    # -------- події миші --------
+    # -------- РїРѕРґС–С— РјРёС€С– --------
     def _event_to_cell(self, ev) -> tuple[int, int]:
         step = self._cell_px()
         x = ev.x // step
@@ -282,13 +282,13 @@ class ArrayPicture:
         self._paint_mark(x, y)
 
     def _on_lmb_up(self, ev):
-        # нічого
+        # РЅС–С‡РѕРіРѕ
         pass
 
     def _paint_mark(self, x: int, y: int):
         if x < 0 or y < 0 or x >= self._cx or y >= self._cy:
             return
-        # Залишаємо сумісність: маркер фарбує чорним, символ не чіпаємо
+        # Р—Р°Р»РёС€Р°С”РјРѕ СЃСѓРјС–СЃРЅС–СЃС‚СЊ: РјР°СЂРєРµСЂ С„Р°СЂР±СѓС” С‡РѕСЂРЅРёРј, СЃРёРјРІРѕР» РЅРµ С‡С–РїР°С”РјРѕ
         def setblack(ix, iy):
             if 0 <= ix < self._cx and 0 <= iy < self._cy:
                 self._grid[iy][ix]["color"] = 0x000000
@@ -305,5 +305,5 @@ class ArrayPicture:
             try:
                 self._on_point(x, y)
             except Exception:
-                # як у нативній версії — не валимо UI
+                # СЏРє Сѓ РЅР°С‚РёРІРЅС–Р№ РІРµСЂСЃС–С— вЂ” РЅРµ РІР°Р»РёРјРѕ UI
                 pass
