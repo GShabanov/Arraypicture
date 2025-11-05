@@ -1,5 +1,5 @@
 ﻿import tkinter as tk
-import arraypicture as ap
+import pyarraypicture as ap
 
 inputLabyrinth = [ 
     ' ', ' ', '*', ' ', ' ', '*', 'E', ' ', ' ', 'J', '*', ' ', ' ', ' ', ' ', '*', 'O', ' ', ' ', 'T', ' ', '*', 'U', ' ', 

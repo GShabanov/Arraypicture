@@ -1,26 +1,48 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arraypicture", "TestApp\Arraypicture.vcxproj", "{069DD544-3E4F-4358-A958-4972039BA397}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LabyrinthPy", "LabyrinthPy\LabyrinthPy.pyproj", "{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LabyrinthPyPy", "LabyrinthPyPy\LabyrinthPyPy.pyproj", "{9D59223D-0109-4EC4-AD33-0856657CE050}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|Any CPU.Build.0 = Debug|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|x64.ActiveCfg = Debug|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|x64.Build.0 = Debug|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|x86.ActiveCfg = Debug|Win32
 		{069DD544-3E4F-4358-A958-4972039BA397}.Debug|x86.Build.0 = Debug|Win32
+		{069DD544-3E4F-4358-A958-4972039BA397}.Release|Any CPU.ActiveCfg = Release|x64
+		{069DD544-3E4F-4358-A958-4972039BA397}.Release|Any CPU.Build.0 = Release|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Release|x64.ActiveCfg = Release|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Release|x64.Build.0 = Release|x64
 		{069DD544-3E4F-4358-A958-4972039BA397}.Release|x86.ActiveCfg = Release|Win32
 		{069DD544-3E4F-4358-A958-4972039BA397}.Release|x86.Build.0 = Release|Win32
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Release|x64.ActiveCfg = Release|Any CPU
+		{7644D13B-EB86-4EFB-90B7-DCFF4C47DE0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D59223D-0109-4EC4-AD33-0856657CE050}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

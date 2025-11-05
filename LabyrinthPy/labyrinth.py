@@ -35,17 +35,26 @@ def cell(color=0xFFFFFF, symbol=None, data=None):
             "data":   None if data is None else int(data)}
 
 def flat_to_rows(flat, w=24, h=24):
-    """З плаского списку робить список рядків (для читабельності/редагування)."""
+    """
+        З плаского списку робить список рядків (для читабельності/редагування).
+    """
+
     if len(flat) != w*h:
         raise ValueError(f"Expected {w*h} items, got {len(flat)}")
+
     return [''.join(flat[r*w:(r+1)*w]) for r in range(h)]
 
+
 def rows_to_cells(rows):
-    """З 24 рядків робить матрицю клітинок для set_input_cells()."""
+    """
+        З 24 рядків робить матрицю клітинок для set_input_cells().
+    """
     H = len(rows)
     W = len(rows[0]) if rows else 0
 
-    # Мапінг символів → (колір, видимий символ)
+    #
+    # Мапінг символів 
+    #
     TILES = {
         ' ': (0xFFFFCC, None),         # шлях
         '*': (0x303030, '█'),          # стіна
@@ -57,12 +66,17 @@ def rows_to_cells(rows):
     }
 
     grid = []
+
     for y in range(H):
+
         row = []
+
         for x, ch in enumerate(rows[y]):
             color, sym = TILES.get(ch, (0xFFFFCC, ch if ch != ' ' else None))
             row.append(cell(color=color, symbol=sym))
+
         grid.append(row)
+
     return grid
 
 
@@ -78,8 +92,9 @@ holder.place(x=20, y=20)
 
 hwnd = holder.winfo_id()
 
+# ---------- використання графічної сітки ----------
 pic = ap.ArrayPicture()
-#             x  y   w    h   cx   cy  marker
+#                x   y   w    h     cx  cy   marker  
 pic.create(hwnd, 0,  0,  602, 602,  24, 24,  1, 24)
 
 # 1) робимо читабельні рядки 24×24
